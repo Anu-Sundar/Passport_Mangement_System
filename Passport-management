@@ -1,0 +1,125 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Passport {
+    private String passportNumber;
+    private String name;
+    private String nationality;
+    private String dateOfBirth;
+    private String expiryDate;
+
+    public Passport(String passportNumber, String name, String nationality, String dateOfBirth, String expiryDate) {
+        this.passportNumber = passportNumber;
+        this.name = name;
+        this.nationality = nationality;
+        this.dateOfBirth = dateOfBirth;
+        this.expiryDate = expiryDate;
+    }
+
+    public String getPassportNumber() {
+        return passportNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+}
+
+public class PassportManagementSystem {
+    private ArrayList<Passport> passports;
+
+    public PassportManagementSystem() {
+        this.passports = new ArrayList<>();
+    }
+
+    public void addPassport() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter passport number: ");
+        String passportNumber = scanner.nextLine();
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter nationality: ");
+        String nationality = scanner.nextLine();
+        System.out.print("Enter date of birth (DD/MM/YYYY): ");
+        String dateOfBirth = scanner.nextLine();
+        System.out.print("Enter expiry date (DD/MM/YYYY): ");
+        String expiryDate = scanner.nextLine();
+
+        Passport passport = new Passport(passportNumber, name, nationality, dateOfBirth, expiryDate);
+        passports.add(passport);
+        System.out.println("Passport added successfully!");
+    }
+
+    public void searchPassport() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter passport number to search: ");
+        String passportNumber = scanner.nextLine();
+
+        for (Passport passport : passports) {
+            if (passport.getPassportNumber().equals(passportNumber)) {
+                System.out.println("Passport found!");
+                System.out.println("Name: " + passport.getName());
+                System.out.println("Nationality: " + passport.getNationality());
+                System.out.println("Date of Birth: " + passport.getDateOfBirth());
+                System.out.println("Expiry Date: " + passport.getExpiryDate());
+                return;
+            }
+        }
+        System.out.println("Passport not found!");
+    }
+
+    public void displayAllPassports() {
+        for (Passport passport : passports) {
+            System.out.println("Passport Number: " + passport.getPassportNumber());
+            System.out.println("Name: " + passport.getName());
+            System.out.println("Nationality: " + passport.getNationality());
+            System.out.println("Date of Birth: " + passport.getDateOfBirth());
+            System.out.println("Expiry Date: " + passport.getExpiryDate());
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        PassportManagementSystem system = new PassportManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Passport Management System");
+            System.out.println("1. Add Passport");
+            System.out.println("2. Search Passport");
+            System.out.println("3. Display All Passports");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    system.addPassport();
+                    break;
+                case 2:
+                    system.searchPassport();
+                    break;
+                case 3:
+                    system.displayAllPassports();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
